@@ -5,3 +5,4 @@ edition = "2021"
 
 [dependencies]
 arboard = { version = "3.4.0", features = ["wayland-data-control"] }
+enigo = { version = "0.2.1" }

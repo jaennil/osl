@@ -1,13 +1,22 @@
-use std::{thread::sleep, time::Duration};
-
 use arboard::Clipboard;
+use enigo::Direction::{Click, Press, Release};
+use enigo::{Enigo, Key, Keyboard, Settings};
 
 fn main() {
+    let mut enigo = Enigo::new(&Settings::default()).unwrap();
+    enigo.key(Key::Control, Press).unwrap();
+    enigo.key(Key::Unicode('a'), Click).unwrap();
+    enigo.key(Key::Control, Release).unwrap();
+    enigo.key(Key::Control, Press).unwrap();
+    enigo.key(Key::Unicode('c'), Click).unwrap();
+    enigo.key(Key::Control, Release).unwrap();
     let mut clipboard = Clipboard::new().unwrap();
     let input = clipboard.get_text().unwrap();
     let translated = translate(&input);
     clipboard.set_text(translated).unwrap();
-    sleep(Duration::from_secs(3));
+    enigo.key(Key::Control, Press).unwrap();
+    enigo.key(Key::Unicode('v'), Click).unwrap();
+    enigo.key(Key::Control, Release).unwrap();
 }
 
 fn translate(text: &str) -> String {
